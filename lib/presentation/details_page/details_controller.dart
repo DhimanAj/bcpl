@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,13 +36,24 @@ class DetailsController extends GetxController {
   var fileName1 = ''.obs;
   var fileName2 = ''.obs;
   var sendOtpmessage = false.obs;
+  var modelname = ''.obs;
+  var manufacturer = ''.obs;
+  var brand = ''.obs;
 
+  late LocationPermission permission;
+  var serviceEnabled = false.obs;
+  var text = "access_your_location".obs;
+  var locationDescription = "".obs;
+  var imeiVerified = false.obs;
   @override
   void onInit() {
     // scanBarCode();
     getLatLong();
+    getDeviceDetails();
     super.onInit();
   }
+
+
 
   //  scanBarCode() async {
   //   String barcodeScanResult = await FlutterBarcodeScanner.scanBarcode(
@@ -60,9 +73,10 @@ class DetailsController extends GetxController {
 
       SendOtpModel sendOtp = await DioClient.base().sendOtp(mapData);
       if (sendOtp.status!) {
+        progressDialog.dismiss();
         SnackBarUtil.showSuccess(message: sendOtp.message.toString());
         sendOtpmessage.value = true;
-        progressDialog.dismiss();
+
         print("allgiftfetchsuccess");
       } else {
         progressDialog.dismiss();
@@ -120,6 +134,7 @@ class DetailsController extends GetxController {
 
       SendOtpModel sendOtp = await DioClient.base().verifyImei(mapData);
       if (sendOtp.status!) {
+        imeiVerified.value = true;
         progressDialog.dismiss();
         SnackBarUtil.showSuccess(message: sendOtp.message.toString());
 
@@ -143,6 +158,27 @@ class DetailsController extends GetxController {
     }
   }
 
+  getDeviceDetails() async {
+    final deviceInfoPlugin = DeviceInfoPlugin();
+    if (GetPlatform.isAndroid) {
+      final deviceAndroidInfo = await deviceInfoPlugin.androidInfo;
+      modelname.value = deviceAndroidInfo.model;
+      manufacturer.value = deviceAndroidInfo.manufacturer;
+      manufacturer.value = deviceAndroidInfo.manufacturer;
+      brand.value = deviceAndroidInfo.brand;
+
+      // print("deviceInfo ${deviceAndroidInfo.model}");
+      // print("deviceInfo ${deviceAndroidInfo.board}");
+      // print("deviceInfo ${deviceAndroidInfo.version}");
+      // print("deviceInfo ${deviceAndroidInfo.device}");
+      // print("deviceInfo ${deviceAndroidInfo.hardware}");
+      // print("deviceInfo ${deviceAndroidInfo.serialNumber}");
+      // print("deviceInfo ${deviceAndroidInfo.model}");
+      // print("deviceInfo ${deviceAndroidInfo.manufacturer}");
+      // return '${deviceAndroidInfo.brand} ${deviceAndroidInfo.device}';
+    }
+  }
+
   saveDataToDb() async {
     try {
       File userFile = File(userPhoto.value);
@@ -162,16 +198,15 @@ class DetailsController extends GetxController {
       mapData['pin'] = pinController.text.trim();
       mapData['modelPurchase'] = modelController.text.trim();
       mapData['oldPhoneBrand'] = oldbrandController.text.trim();
-      mapData['locationPoints'] =
-          "Latitude: ${lat.value}, Longitude: ${long.value}";
-      mapData['locationAddress'] = addressController.text.trim();
+      mapData['locationPoints'] = "Latitude: ${lat.value}, Longitude: ${long.value}";
+      mapData['locationAddress'] = locationDescription.value;
       mapData['customerImageName'] = nameController.text.trim();
       mapData['customerInvoiceImageName'] = nameController.text.trim();
       mapData['customerImage'] = base64Image;
       mapData['customerInvoiceImage'] = base64Image2;
-      mapData['brandNamebrandName'] = imeiController.text.trim();
-      mapData['modelName'] = modelController.text.trim();
-      mapData['manufacturerName'] = modelController.text.trim();
+      mapData['brandNamebrandName'] = brand.value;
+      mapData['modelName'] = modelname.value;
+      mapData['manufacturerName'] =  manufacturer.value;
 
       mapData['activationTime'] = imeiController.text.trim();
       print(mapData);
@@ -183,7 +218,7 @@ class DetailsController extends GetxController {
           imeiController.text,
           numberController.text,
         ]);
-        SnackBarUtil.showSuccess(message: sendOtp.message.toString());
+        // SnackBarUtil.showSuccess(message: sendOtp.message.toString());
 
         print("allgiftfetchsuccess ");
       } else {
@@ -212,6 +247,9 @@ class DetailsController extends GetxController {
     print("lat.");
     print(lat.value);
     print(long.value);
+    List<Placemark> placemarks = await placemarkFromCoordinates(lat.value, long.value);
+    locationDescription.value =
+    "${placemarks[0].subLocality!}, ${placemarks[0].locality!}";
   }
 
   getImage(ImageSource imageSource, context, imgType) async {

@@ -44,7 +44,12 @@ class ScratchCardScreen extends GetView<ScratchCardController> {
                   "assets/images/scratch_overlay.png",
                   fit: BoxFit.fill,
                 ),
-                onChange: (value) => ("Scratch progress: $value%"),
+                onChange: (value) {
+                  print("percentage $value");
+                  if(value.round() == 50){
+                    controller.sendGiftMessage();
+                  }
+                },
                 onThreshold: () => controller.mainScratch.play(),
                 child: Container(
                   height: 300,
@@ -71,7 +76,6 @@ class ScratchCardScreen extends GetView<ScratchCardController> {
                             emissionFrequency: 0.05,
                             numberOfParticles: 100,
                             gravity: 0.05,
-                            // child: controller.sendGiftMessage(),
                             shouldLoop: false,
                             colors: const [
                               Colors.green,

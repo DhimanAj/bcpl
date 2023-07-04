@@ -11,6 +11,7 @@ class AppConstants{
   static String preKeyDeviceType  = "deviceType";
   static String preKeyFcmToken  = "fcmToken";
   static String isTutorialCheck = 'isTutorialCheck';
+  static String locationEnable = "isLocationEnable";
 
   static const privacyWidget = 'policy';
 

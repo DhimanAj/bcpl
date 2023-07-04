@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../infrastructure/navigation/routes.dart';
+import '../../infrastructure/shared/common_functions.dart';
 import '../../infrastructure/theme/colors.theme.dart';
 import '../../infrastructure/theme/text.theme.dart';
 import 'details_controller.dart';
@@ -14,7 +15,10 @@ class DetailsScreen extends GetView<DetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(gradient: LinearGradient(colors: [ColorsTheme.colPrimary, ColorsTheme.col8B0000])),
+        height: Get.height,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [ColorsTheme.colPrimary, ColorsTheme.col8B0000])),
         child: Stack(
           children: [
             SingleChildScrollView(
@@ -32,7 +36,9 @@ class DetailsScreen extends GetView<DetailsController> {
                     padding: const EdgeInsets.only(left: 10, top: 4, bottom: 4),
                     decoration: BoxDecoration(
                       color: ColorsTheme.colWhite.withOpacity(0.75),
-                      border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                      border: Border.all(
+                          color: ColorsTheme.colBlack.withOpacity(0.35),
+                          width: 1),
                       borderRadius: BorderRadius.circular(
                         10,
                       ),
@@ -41,7 +47,8 @@ class DetailsScreen extends GetView<DetailsController> {
                       controller: controller.nameController,
                       //keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.done,
-                      style: semiBoldTextStyle(fontSize: dimen16, color: ColorsTheme.colBlack),
+                      style: semiBoldTextStyle(
+                          fontSize: dimen16, color: ColorsTheme.colBlack),
                       cursorColor: ColorsTheme.colPrimary,
                       onChanged: (text) {
                         //controller.onChangeEmail(text);
@@ -52,8 +59,9 @@ class DetailsScreen extends GetView<DetailsController> {
                             Icons.account_box,
                             color: ColorsTheme.colPrimary,
                           ),
-                          hintText: 'full_name'.tr,
-                          hintStyle: regularTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                          hintText: 'Full Name'.tr,
+                          hintStyle: regularTextStyle(
+                              fontSize: dimen12, color: ColorsTheme.colBlack),
                           contentPadding: const EdgeInsets.only(
                             top: 0,
                             bottom: 0,
@@ -64,11 +72,15 @@ class DetailsScreen extends GetView<DetailsController> {
                     children: [
                       Expanded(
                         child: Container(
-                          margin: const EdgeInsets.only(left: 10, top: 10, right: 5),
-                          padding: const EdgeInsets.only(left: 10, top: 4, bottom: 4),
+                          margin: const EdgeInsets.only(
+                              left: 10, top: 10, right: 5),
+                          padding: const EdgeInsets.only(
+                              left: 10, top: 4, bottom: 4),
                           decoration: BoxDecoration(
                             color: ColorsTheme.colWhite.withOpacity(0.75),
-                            border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                            border: Border.all(
+                                color: ColorsTheme.colBlack.withOpacity(0.35),
+                                width: 1),
                             borderRadius: BorderRadius.circular(
                               10,
                             ),
@@ -77,7 +89,8 @@ class DetailsScreen extends GetView<DetailsController> {
                             controller: controller.imeiController,
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
-                            style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
+                            style: semiBoldTextStyle(
+                                fontSize: dimen14, color: ColorsTheme.colBlack),
                             cursorColor: ColorsTheme.colBlack,
                             onChanged: (text) {
                               //controller.onChangeEmail(text);
@@ -88,8 +101,10 @@ class DetailsScreen extends GetView<DetailsController> {
                                   Icons.phone_android,
                                   color: ColorsTheme.colPrimary,
                                 ),
-                                hintText: controller.scannedNumber.value,
-                                hintStyle: regularTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                                hintText: "Imei",
+                                hintStyle: regularTextStyle(
+                                    fontSize: dimen12,
+                                    color: ColorsTheme.colBlack),
                                 contentPadding: const EdgeInsets.only(
                                   top: 0,
                                   bottom: 0,
@@ -107,10 +122,13 @@ class DetailsScreen extends GetView<DetailsController> {
                             top: 10,
                             right: 10,
                           ),
-                          padding: const EdgeInsets.only(left: 5, top: 4, bottom: 4, right: 5),
+                          padding: const EdgeInsets.only(
+                              left: 5, top: 4, bottom: 4, right: 5),
                           decoration: BoxDecoration(
                             color: ColorsTheme.colWhite.withOpacity(0.75),
-                            border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                            border: Border.all(
+                                color: ColorsTheme.colBlack.withOpacity(0.35),
+                                width: 1),
                             borderRadius: BorderRadius.circular(
                               10,
                             ),
@@ -126,6 +144,18 @@ class DetailsScreen extends GetView<DetailsController> {
                       ),
                     ],
                   ),
+                  Obx(() => controller.imeiVerified.value
+                      ? Container(
+                    margin: const EdgeInsets.only(top: 10,right: 10),
+                    width: Get.width,
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                            "Verified",
+                            style: regularTextStyle(
+                                fontSize: dimen14, color: ColorsTheme.colWhite),
+                          ),
+                      )
+                      : Container()),
                   // Row(
                   //   children: [
                   //     Expanded(
@@ -158,11 +188,15 @@ class DetailsScreen extends GetView<DetailsController> {
                     children: [
                       Expanded(
                         child: Container(
-                          margin: const EdgeInsets.only(left: 10, top: 10, right: 10),
-                          padding: const EdgeInsets.only(left: 10, top: 4, bottom: 4),
+                          margin: const EdgeInsets.only(
+                              left: 10, top: 10, right: 10),
+                          padding: const EdgeInsets.only(
+                              left: 10, top: 4, bottom: 4),
                           decoration: BoxDecoration(
                             color: ColorsTheme.colWhite.withOpacity(0.75),
-                            border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                            border: Border.all(
+                                color: ColorsTheme.colBlack.withOpacity(0.35),
+                                width: 1),
                             borderRadius: BorderRadius.circular(
                               10,
                             ),
@@ -171,7 +205,8 @@ class DetailsScreen extends GetView<DetailsController> {
                             controller: controller.numberController,
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
-                            style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
+                            style: semiBoldTextStyle(
+                                fontSize: dimen14, color: ColorsTheme.colBlack),
                             cursorColor: ColorsTheme.colBlack,
                             onChanged: (text) {
                               //controller.onChangeEmail(text);
@@ -182,8 +217,10 @@ class DetailsScreen extends GetView<DetailsController> {
                                   Icons.call,
                                   color: ColorsTheme.colPrimary,
                                 ),
-                                hintText: 'contact_number'.tr,
-                                hintStyle: regularTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                                hintText: 'Contact Number'.tr,
+                                hintStyle: regularTextStyle(
+                                    fontSize: dimen12,
+                                    color: ColorsTheme.colBlack),
                                 contentPadding: const EdgeInsets.only(
                                   top: 0,
                                   bottom: 0,
@@ -199,19 +236,26 @@ class DetailsScreen extends GetView<DetailsController> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [ColorsTheme.col8B0000, ColorsTheme.colPrimary]),
+                            gradient: LinearGradient(colors: [
+                              ColorsTheme.col8B0000,
+                              ColorsTheme.colPrimary
+                            ]),
 
                             /*tileMode: TileMode.decal,*/
 
                             border: Border.all(color: Colors.white54, width: 1),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          margin: const EdgeInsets.only(right: 10, top: 15, bottom: 10),
-                          padding: const EdgeInsets.only(left: 8, right: 10, top: 11, bottom: 11),
+                          margin: const EdgeInsets.only(
+                              right: 10, top: 15, bottom: 10),
+                          padding: const EdgeInsets.only(
+                              left: 8, right: 10, top: 11, bottom: 11),
                           child: Center(
                             child: Text(
-                              "send_otp".tr,
-                              style: regularTextStyle(fontSize: dimen14, color: ColorsTheme.colWhite),
+                              "Send Otp".tr,
+                              style: regularTextStyle(
+                                  fontSize: dimen14,
+                                  color: ColorsTheme.colWhite),
                             ),
                           ),
                         ),
@@ -219,77 +263,98 @@ class DetailsScreen extends GetView<DetailsController> {
                     ],
                   ),
 
-                  Obx(() => controller.sendOtpmessage.value ?     Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 10, top: 10, right: 10),
-                          padding: const EdgeInsets.only(left: 10, top: 4, bottom: 4),
-                          decoration: BoxDecoration(
-                            color: ColorsTheme.colWhite.withOpacity(0.75),
-                            border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            ),
-                          ),
-                          child: TextFormField(
-                            controller: controller.otpController,
-                            keyboardType: TextInputType.number,
-                            textInputAction: TextInputAction.done,
-                            style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
-                            cursorColor: ColorsTheme.colBlack,
-                            onChanged: (text) {
-                              //controller.onChangeEmail(text);
-                            },
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                icon: Icon(
-                                  Icons.password,
-                                  color: ColorsTheme.colPrimary,
+                  Obx(() => controller.sendOtpmessage.value
+                      ? Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                    left: 10, top: 10, right: 10),
+                                padding: const EdgeInsets.only(
+                                    left: 10, top: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                  color: ColorsTheme.colWhite.withOpacity(0.75),
+                                  border: Border.all(
+                                      color: ColorsTheme.colBlack
+                                          .withOpacity(0.35),
+                                      width: 1),
+                                  borderRadius: BorderRadius.circular(
+                                    10,
+                                  ),
                                 ),
-                                hintText: 'otp'.tr,
-                                hintStyle: regularTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
-                                contentPadding: const EdgeInsets.only(
-                                  top: 0,
-                                  bottom: 0,
-                                )),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          //Get.toNamed(Routes.finalPage);
-                          controller.verifyOtp();
-                          //Get.offAndToNamed(Routes.dropdownScreen);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [ColorsTheme.col8B0000, ColorsTheme.colPrimary]),
-
-                            /*tileMode: TileMode.decal,*/
-
-                            border: Border.all(color: Colors.white54, width: 1),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          margin: const EdgeInsets.only(right: 10, top: 15, bottom: 10),
-                          padding: const EdgeInsets.only(left: 8, right: 10, top: 11, bottom: 11),
-                          child: Center(
-                            child: Text(
-                              "Verify Otp".tr,
-                              style: regularTextStyle(fontSize: dimen14, color: ColorsTheme.colWhite),
+                                child: TextFormField(
+                                  controller: controller.otpController,
+                                  keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.done,
+                                  style: semiBoldTextStyle(
+                                      fontSize: dimen14,
+                                      color: ColorsTheme.colBlack),
+                                  cursorColor: ColorsTheme.colBlack,
+                                  onChanged: (text) {
+                                    //controller.onChangeEmail(text);
+                                  },
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      icon: Icon(
+                                        Icons.password,
+                                        color: ColorsTheme.colPrimary,
+                                      ),
+                                      hintText: 'otp'.tr,
+                                      hintStyle: regularTextStyle(
+                                          fontSize: dimen12,
+                                          color: ColorsTheme.colBlack),
+                                      contentPadding: const EdgeInsets.only(
+                                        top: 0,
+                                        bottom: 0,
+                                      )),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ) : Container()),
+                            InkWell(
+                              onTap: () {
+                                //Get.toNamed(Routes.finalPage);
+                                controller.verifyOtp();
+                                //Get.offAndToNamed(Routes.dropdownScreen);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    ColorsTheme.col8B0000,
+                                    ColorsTheme.colPrimary
+                                  ]),
+
+                                  /*tileMode: TileMode.decal,*/
+
+                                  border: Border.all(
+                                      color: Colors.white54, width: 1),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                margin: const EdgeInsets.only(
+                                    right: 10, top: 15, bottom: 10),
+                                padding: const EdgeInsets.only(
+                                    left: 8, right: 10, top: 11, bottom: 11),
+                                child: Center(
+                                  child: Text(
+                                    "Verify Otp".tr,
+                                    style: regularTextStyle(
+                                        fontSize: dimen14,
+                                        color: ColorsTheme.colWhite),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container()),
 
                   Container(
                     margin: const EdgeInsets.only(left: 10, top: 10, right: 10),
                     padding: const EdgeInsets.only(left: 10, top: 4, bottom: 4),
                     decoration: BoxDecoration(
                       color: ColorsTheme.colWhite.withOpacity(0.75),
-                      border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                      border: Border.all(
+                          color: ColorsTheme.colBlack.withOpacity(0.35),
+                          width: 1),
                       borderRadius: BorderRadius.circular(
                         10,
                       ),
@@ -298,7 +363,8 @@ class DetailsScreen extends GetView<DetailsController> {
                       controller: controller.addressController,
                       //keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.done,
-                      style: semiBoldTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                      style: semiBoldTextStyle(
+                          fontSize: dimen12, color: ColorsTheme.colBlack),
                       cursorColor: ColorsTheme.colBlack,
                       onChanged: (text) {
                         //controller.onChangeEmail(text);
@@ -309,8 +375,9 @@ class DetailsScreen extends GetView<DetailsController> {
                             Icons.home,
                             color: ColorsTheme.colPrimary,
                           ),
-                          hintText: 'address'.tr,
-                          hintStyle: regularTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                          hintText: 'Address'.tr,
+                          hintStyle: regularTextStyle(
+                              fontSize: dimen12, color: ColorsTheme.colBlack),
                           contentPadding: const EdgeInsets.only(
                             top: 0,
                             bottom: 0,
@@ -322,7 +389,9 @@ class DetailsScreen extends GetView<DetailsController> {
                     padding: const EdgeInsets.only(left: 10, top: 4, bottom: 4),
                     decoration: BoxDecoration(
                       color: ColorsTheme.colWhite.withOpacity(0.75),
-                      border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                      border: Border.all(
+                          color: ColorsTheme.colBlack.withOpacity(0.35),
+                          width: 1),
                       borderRadius: BorderRadius.circular(
                         10,
                       ),
@@ -331,7 +400,8 @@ class DetailsScreen extends GetView<DetailsController> {
                       controller: controller.pinController,
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.done,
-                      style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
+                      style: semiBoldTextStyle(
+                          fontSize: dimen14, color: ColorsTheme.colBlack),
                       cursorColor: ColorsTheme.colBlack,
                       onChanged: (text) {
                         //controller.onChangeEmail(text);
@@ -342,8 +412,9 @@ class DetailsScreen extends GetView<DetailsController> {
                             Icons.pin_drop_outlined,
                             color: ColorsTheme.colPrimary,
                           ),
-                          hintText: 'pin_code'.tr,
-                          hintStyle: regularTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                          hintText: 'Pin Code'.tr,
+                          hintStyle: regularTextStyle(
+                              fontSize: dimen12, color: ColorsTheme.colBlack),
                           contentPadding: const EdgeInsets.only(
                             top: 0,
                             bottom: 0,
@@ -355,7 +426,9 @@ class DetailsScreen extends GetView<DetailsController> {
                     padding: const EdgeInsets.only(left: 10, top: 4, bottom: 4),
                     decoration: BoxDecoration(
                       color: ColorsTheme.colWhite.withOpacity(0.75),
-                      border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                      border: Border.all(
+                          color: ColorsTheme.colBlack.withOpacity(0.35),
+                          width: 1),
                       borderRadius: BorderRadius.circular(
                         10,
                       ),
@@ -364,7 +437,8 @@ class DetailsScreen extends GetView<DetailsController> {
                       controller: controller.modelController,
                       //keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.done,
-                      style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
+                      style: semiBoldTextStyle(
+                          fontSize: dimen14, color: ColorsTheme.colBlack),
                       cursorColor: ColorsTheme.colBlack,
                       onChanged: (text) {
                         //controller.onChangeEmail(text);
@@ -375,8 +449,9 @@ class DetailsScreen extends GetView<DetailsController> {
                             Icons.phone_android,
                             color: ColorsTheme.colPrimary,
                           ),
-                          hintText: 'model_purchase'.tr,
-                          hintStyle: regularTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                          hintText: 'Model Purchase'.tr,
+                          hintStyle: regularTextStyle(
+                              fontSize: dimen12, color: ColorsTheme.colBlack),
                           contentPadding: const EdgeInsets.only(
                             top: 0,
                             bottom: 0,
@@ -388,7 +463,9 @@ class DetailsScreen extends GetView<DetailsController> {
                     padding: const EdgeInsets.only(left: 10, top: 4, bottom: 4),
                     decoration: BoxDecoration(
                       color: ColorsTheme.colWhite.withOpacity(0.75),
-                      border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                      border: Border.all(
+                          color: ColorsTheme.colBlack.withOpacity(0.35),
+                          width: 1),
                       borderRadius: BorderRadius.circular(
                         10,
                       ),
@@ -397,7 +474,8 @@ class DetailsScreen extends GetView<DetailsController> {
                       controller: controller.oldbrandController,
                       //keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.done,
-                      style: semiBoldTextStyle(fontSize: dimen14, color: ColorsTheme.colBlack),
+                      style: semiBoldTextStyle(
+                          fontSize: dimen14, color: ColorsTheme.colBlack),
                       cursorColor: ColorsTheme.colBlack,
                       onChanged: (text) {
                         //controller.onChangeEmail(text);
@@ -408,8 +486,9 @@ class DetailsScreen extends GetView<DetailsController> {
                             Icons.phone_android_sharp,
                             color: ColorsTheme.colPrimary,
                           ),
-                          hintText: 'old_phone_brand'.tr,
-                          hintStyle: regularTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                          hintText: 'Old Phone Brand'.tr,
+                          hintStyle: regularTextStyle(
+                              fontSize: dimen12, color: ColorsTheme.colBlack),
                           contentPadding: const EdgeInsets.only(
                             top: 0,
                             bottom: 0,
@@ -420,22 +499,31 @@ class DetailsScreen extends GetView<DetailsController> {
                     children: [
                       Expanded(
                         child: Container(
-                            margin: const EdgeInsets.only(left: 10, top: 10, right: 10),
-                            padding: const EdgeInsets.only(left: 10, top: 4, bottom: 10),
+                            margin: const EdgeInsets.only(
+                                left: 10, top: 10, right: 10),
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 4, bottom: 10),
                             decoration: BoxDecoration(
                               color: ColorsTheme.colWhite.withOpacity(0.75),
-                              border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                              border: Border.all(
+                                  color: ColorsTheme.colBlack.withOpacity(0.35),
+                                  width: 1),
                               borderRadius: BorderRadius.circular(
                                 10,
                               ),
                             ),
                             child: Obx(() => Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
                                   child: Text(
-                                    controller.userPhoto.isEmpty ? 'Custome Image'.tr : controller.fileName1.value,
+                                    controller.userPhoto.isEmpty
+                                        ? 'Custome Image'.tr
+                                        : controller.fileName1.value,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
-                                    style: mediumTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                                    style: mediumTextStyle(
+                                        fontSize: dimen12,
+                                        color: ColorsTheme.colBlack),
                                   ),
                                 ))
 
@@ -468,23 +556,31 @@ class DetailsScreen extends GetView<DetailsController> {
                       ),
                       InkWell(
                         onTap: () {
-                          controller.getImage(ImageSource.camera, context, 'customImage');
+                          controller.getImage(
+                              ImageSource.camera, context, 'customImage');
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [ColorsTheme.col8B0000, ColorsTheme.colPrimary]),
+                            gradient: LinearGradient(colors: [
+                              ColorsTheme.col8B0000,
+                              ColorsTheme.colPrimary
+                            ]),
 
                             /*tileMode: TileMode.decal,*/
 
                             border: Border.all(color: Colors.white54, width: 1),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          margin: const EdgeInsets.only(right: 10, top: 15, bottom: 10),
-                          padding: const EdgeInsets.only(left: 8, right: 10, top: 11, bottom: 11),
+                          margin: const EdgeInsets.only(
+                              right: 10, top: 15, bottom: 10),
+                          padding: const EdgeInsets.only(
+                              left: 8, right: 10, top: 11, bottom: 11),
                           child: Center(
                             child: Text(
                               "add".tr,
-                              style: regularTextStyle(fontSize: dimen14, color: ColorsTheme.colWhite),
+                              style: regularTextStyle(
+                                  fontSize: dimen14,
+                                  color: ColorsTheme.colWhite),
                             ),
                           ),
                         ),
@@ -495,42 +591,59 @@ class DetailsScreen extends GetView<DetailsController> {
                     children: [
                       Expanded(
                         child: Container(
-                            margin: const EdgeInsets.only(left: 10, top: 10, right: 10),
-                            padding: const EdgeInsets.only(left: 10, top: 4, bottom: 4),
+                            margin: const EdgeInsets.only(
+                                left: 10, top: 10, right: 10),
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 4, bottom: 4),
                             decoration: BoxDecoration(
                               color: ColorsTheme.colWhite.withOpacity(0.75),
-                              border: Border.all(color: ColorsTheme.colBlack.withOpacity(0.35), width: 1),
+                              border: Border.all(
+                                  color: ColorsTheme.colBlack.withOpacity(0.35),
+                                  width: 1),
                               borderRadius: BorderRadius.circular(
                                 10,
                               ),
                             ),
                             child: Obx(() => Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
                                   child: Text(
-                                    controller.userPhoto2.isEmpty ? 'Invoice Image'.tr : controller.fileName2.value,
+                                    controller.userPhoto2.isEmpty
+                                        ? 'Invoice Image'.tr
+                                        : controller.fileName2.value,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
-                                    style: mediumTextStyle(fontSize: dimen12, color: ColorsTheme.colBlack),
+                                    style: mediumTextStyle(
+                                        fontSize: dimen12,
+                                        color: ColorsTheme.colBlack),
                                   ),
                                 ))),
                       ),
                       InkWell(
                         onTap: () {
-                          controller.getImage(ImageSource.camera, context, 'invoiceImage');
+                          controller.getImage(
+                              ImageSource.camera, context, 'invoiceImage');
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [ColorsTheme.col8B0000, ColorsTheme.colPrimary]),
+                            gradient: LinearGradient(colors: [
+                              ColorsTheme.col8B0000,
+                              ColorsTheme.colPrimary
+                            ]),
                             /*tileMode: TileMode.decal,*/
                             border: Border.all(color: Colors.white54, width: 1),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          margin: const EdgeInsets.only(right: 10, top: 15, bottom: 10),
-                          padding: const EdgeInsets.only(left: 8, right: 10, top: 11, bottom: 11),
+                          margin: const EdgeInsets.only(
+                              right: 10, top: 15, bottom: 10),
+                          padding: const EdgeInsets.only(
+                              left: 8, right: 10, top: 11, bottom: 11),
                           child: Center(
                             child: Text(
                               "add".tr,
-                              style: regularTextStyle(fontSize: dimen14, color: ColorsTheme.colWhite),
+                              style: regularTextStyle(
+                                  fontSize: dimen14,
+                                  color: ColorsTheme.colWhite),
                             ),
                           ),
                         ),
@@ -539,6 +652,7 @@ class DetailsScreen extends GetView<DetailsController> {
                   ),
                   InkWell(
                     onTap: () {
+                      CommonFunction.keyboardDismiss(context);
 
                       controller.saveDataToDb();
 
@@ -547,11 +661,13 @@ class DetailsScreen extends GetView<DetailsController> {
                       //   controller.imeiController.text,
                       //   controller.numberController.text,
                       // ]);
-
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [ColorsTheme.col8B0000, ColorsTheme.colPrimary]),
+                        gradient: LinearGradient(colors: [
+                          ColorsTheme.col8B0000,
+                          ColorsTheme.colPrimary
+                        ]),
 
                         /*tileMode: TileMode.decal,*/
 
@@ -559,12 +675,14 @@ class DetailsScreen extends GetView<DetailsController> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
+                      margin: const EdgeInsets.only(
+                          left: 40, right: 40, top: 20, bottom: 20),
                       padding: const EdgeInsets.only(top: 11, bottom: 11),
                       child: Center(
                         child: Text(
                           "submit".tr,
-                          style: regularTextStyle(fontSize: dimen14, color: ColorsTheme.colWhite),
+                          style: regularTextStyle(
+                              fontSize: dimen14, color: ColorsTheme.colWhite),
                         ),
                       ),
                     ),

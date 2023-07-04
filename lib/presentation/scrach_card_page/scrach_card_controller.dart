@@ -39,7 +39,7 @@ class ScratchCardController extends GetxController {
 
   giftDetailApi() async {
     try {
-      progressDialog.show();
+      // progressDialog.show();
       Map<String, dynamic> mapData = {};
       mapData['name'] = name.value;
       mapData['number'] = number.value;
