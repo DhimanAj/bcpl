@@ -53,7 +53,7 @@ class ManageSubscriptionController extends GetxController {
     if (permission == LocationPermission.whileInUse ||
         permission == LocationPermission.always ||
         permission == LocationPermission.unableToDetermine) {
-      Get.offAllNamed(Routes.detailsPage);
+      Get.toNamed(Routes.detailsPage);
       PreferenceManager.setBool(AppConstants.locationEnable, true);
     }
     if (permission == LocationPermission.denied) {
@@ -67,7 +67,7 @@ class ManageSubscriptionController extends GetxController {
         if (permission == LocationPermission.whileInUse ||
             permission == LocationPermission.always ||
             permission == LocationPermission.unableToDetermine) {
-          Get.offAllNamed(Routes.detailsPage);
+          Get.toNamed(Routes.detailsPage);
         }
       }
     }

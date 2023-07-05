@@ -31,6 +31,9 @@ class DetailsController extends GetxController {
   final oldbrandController = TextEditingController();
   var lat = 0.0.obs;
   var long = 0.0.obs;
+  var imagePath = "".obs;
+  var compressImagePath = "".obs;
+
   ProgressDialog progressDialog = ProgressDialog();
   var userPhoto1 = ''.obs;
   var userPhoto2 = ''.obs;
@@ -183,13 +186,9 @@ class DetailsController extends GetxController {
 
   saveDataToDb() async {
     try {
-      File userFile1 = File(userPhoto1.value);
-      List<int>imageByte1 = userFile1.readAsBytesSync();
-      String base64Image = base64Encode(imageByte1);
 
-      File userFile2 = File(userPhoto2.value);
-      List<int>imageByte2 = userFile2.readAsBytesSync();
-      String base64Image2 = base64Encode(imageByte2);
+
+
 
       progressDialog.show();
       Map<String, dynamic> mapData = {};
@@ -204,11 +203,11 @@ class DetailsController extends GetxController {
       mapData['locationAddress'] = locationDescription.value;
       mapData['customerImageName'] = nameController.text.trim();
       mapData['customerInvoiceImageName'] = nameController.text.trim();
-      mapData['customerImage'] = base64Image;
-      mapData['customerInvoiceImage'] = base64Image2;
       mapData['brandNamebrandName'] = brand.value;
       mapData['modelName'] = modelname.value;
       mapData['manufacturerName'] =  manufacturer.value;
+      mapData['customerImage'] = imagePath.value;
+      mapData['customerInvoiceImage'] = userPhoto2.value;
 
       mapData['activationTime'] = imeiController.text.trim();
       print(mapData);
@@ -251,46 +250,44 @@ class DetailsController extends GetxController {
     print(long.value);
     List<Placemark> placemarks = await placemarkFromCoordinates(lat.value, long.value);
     locationDescription.value =
-    "${placemarks[0].subLocality!}, ${placemarks[0].locality!}";
+    "${placemarks[0].name} ${placemarks[0].subLocality!}, ${placemarks[0].locality!} ${placemarks[0].name}";
+    print("ADDRESSS ${placemarks[0].subLocality!}, ${placemarks[0].locality!}, ");
   }
 
   getImage(ImageSource imageSource, context, imgType) async {
-    final pickedFile = await ImagePicker().pickImage(source: imageSource);
     var date = DateTime.now();
     String imgPath = date.millisecondsSinceEpoch.toString();
-    if (pickedFile != null) {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: imageSource);
+    print('picked image');
+    if (image!.path.isNotEmpty) {
       // Compress
       final dir = Directory.systemTemp;
       final targetPath = "${dir.absolute.path}/$imgPath.jpg";
-      var compressedFile = await FlutterImageCompress.compressAndGetFile(
-          pickedFile.path, targetPath,
-          quality: 90);
-      fileName1.value = pickedFile.name;
-      userPhoto1.value = compressedFile!.path;
-/*      if (imgType == "customImage") {
 
-      } else {
-        fileName2.value = pickedFile.name;
-        userPhoto2.value = compressedFile!.path;
-      }*/
+      print("userPhoto__1 ${targetPath}");
+      File userFile2 = File(image.path);
+      List<int>imageByte2 = userFile2.readAsBytesSync();
+      imagePath.value = base64Encode(imageByte2);
     }
   }
 
   getinvoiceImage(ImageSource imageSource, context, imgType) async {
-    final pickedFile = await ImagePicker().pickImage(source: imageSource);
     var date = DateTime.now();
     String imgPath = date.millisecondsSinceEpoch.toString();
-    if (pickedFile != null) {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: imageSource);
+    print('picked image');
+    if (image!.path.isNotEmpty) {
+
       // Compress
       final dir = Directory.systemTemp;
       final targetPath = "${dir.absolute.path}/$imgPath.jpg";
-      var compressedFile = await FlutterImageCompress.compressAndGetFile(
-          pickedFile.path, targetPath,
-          quality: 90);
-      fileName2.value = pickedFile.name;
-      userPhoto2.value = compressedFile!.path;
-    }
-  }
+      File userFile2 = File(image.path);
+      List<int>imageByte2 = userFile2.readAsBytesSync();
+      userPhoto2.value = base64Encode(imageByte2);
+      print("userPhoto__1 ${targetPath}");
+  }}
 
    scanner( context) async {
      var res = await Navigator.push(

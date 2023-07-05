@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +13,8 @@ import 'details_controller.dart';
 
 class DetailsScreen extends GetView<DetailsController> {
   const DetailsScreen({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -620,6 +624,7 @@ class DetailsScreen extends GetView<DetailsController> {
                                   ),
                                 ))),
                       ),
+
                       InkWell(
                         onTap: () {
                           controller.getinvoiceImage(
@@ -650,6 +655,25 @@ class DetailsScreen extends GetView<DetailsController> {
                         ),
                       ),
                     ],
+                  ),
+
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.file(
+                      File(controller.imagePath.value),
+                      fit: BoxFit.cover,
+                      width: 102,
+                      height: 99,
+                    ),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.file(
+                      File(controller.userPhoto2.value),
+                      fit: BoxFit.cover,
+                      width: 102,
+                      height: 99,
+                    ),
                   ),
                   InkWell(
                     onTap: () {
