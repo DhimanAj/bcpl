@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 import '../../infrastructure/core/widget/progress_dialog.dart';
 import '../../infrastructure/model/otp_model.dart';
@@ -31,7 +32,7 @@ class DetailsController extends GetxController {
   var lat = 0.0.obs;
   var long = 0.0.obs;
   ProgressDialog progressDialog = ProgressDialog();
-  var userPhoto = ''.obs;
+  var userPhoto1 = ''.obs;
   var userPhoto2 = ''.obs;
   var fileName1 = ''.obs;
   var fileName2 = ''.obs;
@@ -126,8 +127,9 @@ class DetailsController extends GetxController {
     }
   }
 
-  verifyImei() async {
+  verifyImei(res) async {
     try {
+      imeiController.text = res;
       progressDialog.show();
       Map<String, dynamic> mapData = {};
       mapData['imeiNo'] = imeiController.text;
@@ -181,12 +183,12 @@ class DetailsController extends GetxController {
 
   saveDataToDb() async {
     try {
-      File userFile = File(userPhoto.value);
-      List<int>imageByte = userFile.readAsBytesSync();
-      String base64Image = base64Encode(imageByte);
+      File userFile1 = File(userPhoto1.value);
+      List<int>imageByte1 = userFile1.readAsBytesSync();
+      String base64Image = base64Encode(imageByte1);
 
-      File imageFile2 = File(userPhoto2.value);
-      List<int>imageByte2 = imageFile2.readAsBytesSync();
+      File userFile2 = File(userPhoto2.value);
+      List<int>imageByte2 = userFile2.readAsBytesSync();
       String base64Image2 = base64Encode(imageByte2);
 
       progressDialog.show();
@@ -263,13 +265,46 @@ class DetailsController extends GetxController {
       var compressedFile = await FlutterImageCompress.compressAndGetFile(
           pickedFile.path, targetPath,
           quality: 90);
-      if (imgType == "customImage") {
-        fileName1.value = pickedFile.name;
-        userPhoto.value = compressedFile!.path;
+      fileName1.value = pickedFile.name;
+      userPhoto1.value = compressedFile!.path;
+/*      if (imgType == "customImage") {
+
       } else {
         fileName2.value = pickedFile.name;
         userPhoto2.value = compressedFile!.path;
-      }
+      }*/
     }
   }
+
+  getinvoiceImage(ImageSource imageSource, context, imgType) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    var date = DateTime.now();
+    String imgPath = date.millisecondsSinceEpoch.toString();
+    if (pickedFile != null) {
+      // Compress
+      final dir = Directory.systemTemp;
+      final targetPath = "${dir.absolute.path}/$imgPath.jpg";
+      var compressedFile = await FlutterImageCompress.compressAndGetFile(
+          pickedFile.path, targetPath,
+          quality: 90);
+      fileName2.value = pickedFile.name;
+      userPhoto2.value = compressedFile!.path;
+    }
+  }
+
+   scanner( context) async {
+     var res = await Navigator.push(
+         context,
+         MaterialPageRoute(
+           builder: (context) => const SimpleBarcodeScannerPage(),
+         ));
+     print("scanningvalue $res");
+     verifyImei(res);
+   }
+
+   onChangeimei(String text) {
+    if(text.length == 15){
+      verifyImei(text);
+    }
+   }
 }

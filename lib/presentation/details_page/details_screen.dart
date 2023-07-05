@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 import '../../infrastructure/navigation/routes.dart';
 import '../../infrastructure/shared/common_functions.dart';
@@ -93,7 +94,7 @@ class DetailsScreen extends GetView<DetailsController> {
                                 fontSize: dimen14, color: ColorsTheme.colBlack),
                             cursorColor: ColorsTheme.colBlack,
                             onChanged: (text) {
-                              //controller.onChangeEmail(text);
+                              controller.onChangeimei(text);
                             },
                             decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -112,10 +113,9 @@ class DetailsScreen extends GetView<DetailsController> {
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          controller.verifyImei();
-                        },
+                      InkWell(onTap: () async {
+                       controller.scanner(context);
+                      },
                         child: Container(
                           margin: const EdgeInsets.only(
                             left: 5,
@@ -136,12 +136,13 @@ class DetailsScreen extends GetView<DetailsController> {
                           child: IconButton(
                             color: ColorsTheme.colBlack,
                             onPressed: () {
-                              controller.verifyImei();
+                              controller.scanner(context);
                             },
                             icon: const Icon(Icons.qr_code_scanner),
                           ),
                         ),
                       ),
+
                     ],
                   ),
                   Obx(() => controller.imeiVerified.value
@@ -516,7 +517,7 @@ class DetailsScreen extends GetView<DetailsController> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 10),
                                   child: Text(
-                                    controller.userPhoto.isEmpty
+                                    controller.userPhoto1.isEmpty
                                         ? 'Custome Image'.tr
                                         : controller.fileName1.value,
                                     overflow: TextOverflow.ellipsis,
@@ -621,7 +622,7 @@ class DetailsScreen extends GetView<DetailsController> {
                       ),
                       InkWell(
                         onTap: () {
-                          controller.getImage(
+                          controller.getinvoiceImage(
                               ImageSource.camera, context, 'invoiceImage');
                         },
                         child: Container(
