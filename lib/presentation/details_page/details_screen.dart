@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,8 +11,6 @@ import 'details_controller.dart';
 
 class DetailsScreen extends GetView<DetailsController> {
   const DetailsScreen({super.key});
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +114,7 @@ class DetailsScreen extends GetView<DetailsController> {
                         ),
                       ),
                       InkWell(onTap: () async {
-                       controller.scanner(context);
+                        controller.scanner(context);
                       },
                         child: Container(
                           margin: const EdgeInsets.only(
@@ -153,13 +149,13 @@ class DetailsScreen extends GetView<DetailsController> {
                       ? Container(
                     margin: const EdgeInsets.only(top: 10,right: 10),
                     width: Get.width,
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                            "Verified",
-                            style: regularTextStyle(
-                                fontSize: dimen14, color: ColorsTheme.colWhite),
-                          ),
-                      )
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Verified",
+                      style: regularTextStyle(
+                          fontSize: dimen14, color: ColorsTheme.colWhite),
+                    ),
+                  )
                       : Container()),
                   // Row(
                   //   children: [
@@ -270,86 +266,86 @@ class DetailsScreen extends GetView<DetailsController> {
 
                   Obx(() => controller.sendOtpmessage.value
                       ? Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10, top: 10, right: 10),
-                                padding: const EdgeInsets.only(
-                                    left: 10, top: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                  color: ColorsTheme.colWhite.withOpacity(0.75),
-                                  border: Border.all(
-                                      color: ColorsTheme.colBlack
-                                          .withOpacity(0.35),
-                                      width: 1),
-                                  borderRadius: BorderRadius.circular(
-                                    10,
-                                  ),
-                                ),
-                                child: TextFormField(
-                                  controller: controller.otpController,
-                                  keyboardType: TextInputType.number,
-                                  textInputAction: TextInputAction.done,
-                                  style: semiBoldTextStyle(
-                                      fontSize: dimen14,
-                                      color: ColorsTheme.colBlack),
-                                  cursorColor: ColorsTheme.colBlack,
-                                  onChanged: (text) {
-                                    //controller.onChangeEmail(text);
-                                  },
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      icon: Icon(
-                                        Icons.password,
-                                        color: ColorsTheme.colPrimary,
-                                      ),
-                                      hintText: 'otp'.tr,
-                                      hintStyle: regularTextStyle(
-                                          fontSize: dimen12,
-                                          color: ColorsTheme.colBlack),
-                                      contentPadding: const EdgeInsets.only(
-                                        top: 0,
-                                        bottom: 0,
-                                      )),
-                                ),
-                              ),
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              left: 10, top: 10, right: 10),
+                          padding: const EdgeInsets.only(
+                              left: 10, top: 4, bottom: 4),
+                          decoration: BoxDecoration(
+                            color: ColorsTheme.colWhite.withOpacity(0.75),
+                            border: Border.all(
+                                color: ColorsTheme.colBlack
+                                    .withOpacity(0.35),
+                                width: 1),
+                            borderRadius: BorderRadius.circular(
+                              10,
                             ),
-                            InkWell(
-                              onTap: () {
-                                //Get.toNamed(Routes.finalPage);
-                                controller.verifyOtp();
-                                //Get.offAndToNamed(Routes.dropdownScreen);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                    ColorsTheme.col8B0000,
-                                    ColorsTheme.colPrimary
-                                  ]),
-
-                                  /*tileMode: TileMode.decal,*/
-
-                                  border: Border.all(
-                                      color: Colors.white54, width: 1),
-                                  borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: TextFormField(
+                            controller: controller.otpController,
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.done,
+                            style: semiBoldTextStyle(
+                                fontSize: dimen14,
+                                color: ColorsTheme.colBlack),
+                            cursorColor: ColorsTheme.colBlack,
+                            onChanged: (text) {
+                              //controller.onChangeEmail(text);
+                            },
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.password,
+                                  color: ColorsTheme.colPrimary,
                                 ),
-                                margin: const EdgeInsets.only(
-                                    right: 10, top: 15, bottom: 10),
-                                padding: const EdgeInsets.only(
-                                    left: 8, right: 10, top: 11, bottom: 11),
-                                child: Center(
-                                  child: Text(
-                                    "Verify Otp".tr,
-                                    style: regularTextStyle(
-                                        fontSize: dimen14,
-                                        color: ColorsTheme.colWhite),
-                                  ),
-                                ),
-                              ),
+                                hintText: 'otp'.tr,
+                                hintStyle: regularTextStyle(
+                                    fontSize: dimen12,
+                                    color: ColorsTheme.colBlack),
+                                contentPadding: const EdgeInsets.only(
+                                  top: 0,
+                                  bottom: 0,
+                                )),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          //Get.toNamed(Routes.finalPage);
+                          controller.verifyOtp();
+                          //Get.offAndToNamed(Routes.dropdownScreen);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [
+                              ColorsTheme.col8B0000,
+                              ColorsTheme.colPrimary
+                            ]),
+
+                            /*tileMode: TileMode.decal,*/
+
+                            border: Border.all(
+                                color: Colors.white54, width: 1),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          margin: const EdgeInsets.only(
+                              right: 10, top: 15, bottom: 10),
+                          padding: const EdgeInsets.only(
+                              left: 8, right: 10, top: 11, bottom: 11),
+                          child: Center(
+                            child: Text(
+                              "Verify Otp".tr,
+                              style: regularTextStyle(
+                                  fontSize: dimen14,
+                                  color: ColorsTheme.colWhite),
                             ),
-                          ],
-                        )
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                       : Container()),
 
                   Container(
@@ -518,19 +514,19 @@ class DetailsScreen extends GetView<DetailsController> {
                               ),
                             ),
                             child: Obx(() => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: Text(
-                                    controller.userPhoto1.isEmpty
-                                        ? 'Custome Image'.tr
-                                        : controller.fileName1.value,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: mediumTextStyle(
-                                        fontSize: dimen12,
-                                        color: ColorsTheme.colBlack),
-                                  ),
-                                ))
+                              padding:
+                              const EdgeInsets.symmetric(vertical: 10),
+                              child: Text(
+                                controller.userPhoto1.isEmpty
+                                    ? 'Custome Image'.tr
+                                    : controller.fileName1.value,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: mediumTextStyle(
+                                    fontSize: dimen12,
+                                    color: ColorsTheme.colBlack),
+                              ),
+                            ))
 
 /*                          TextFormField(
                             //controller: controller.emailController,
@@ -557,7 +553,7 @@ class DetailsScreen extends GetView<DetailsController> {
                                   bottom: 0,
                                 )),
                           ),*/
-                            ),
+                        ),
                       ),
                       InkWell(
                         onTap: () {
@@ -610,21 +606,20 @@ class DetailsScreen extends GetView<DetailsController> {
                               ),
                             ),
                             child: Obx(() => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: Text(
-                                    controller.userPhoto2.isEmpty
-                                        ? 'Invoice Image'.tr
-                                        : controller.fileName2.value,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: mediumTextStyle(
-                                        fontSize: dimen12,
-                                        color: ColorsTheme.colBlack),
-                                  ),
-                                ))),
+                              padding:
+                              const EdgeInsets.symmetric(vertical: 10),
+                              child: Text(
+                                controller.userPhoto2.isEmpty
+                                    ? 'Invoice Image'.tr
+                                    : controller.fileName2.value,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: mediumTextStyle(
+                                    fontSize: dimen12,
+                                    color: ColorsTheme.colBlack),
+                              ),
+                            ))),
                       ),
-
                       InkWell(
                         onTap: () {
                           controller.getinvoiceImage(
@@ -655,25 +650,6 @@ class DetailsScreen extends GetView<DetailsController> {
                         ),
                       ),
                     ],
-                  ),
-
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.file(
-                      File(controller.imagePath.value),
-                      fit: BoxFit.cover,
-                      width: 102,
-                      height: 99,
-                    ),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.file(
-                      File(controller.userPhoto2.value),
-                      fit: BoxFit.cover,
-                      width: 102,
-                      height: 99,
-                    ),
                   ),
                   InkWell(
                     onTap: () {
